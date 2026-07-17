@@ -1,0 +1,49 @@
+name: Quality
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Composer Quality
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: elavora
+          POSTGRES_USER: elavora
+          POSTGRES_PASSWORD: elavora
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U elavora -d elavora"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      POSTGRES_HOST: 127.0.0.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer:2
+          coverage: none
+          extensions: json, pdo, pdo_pgsql, pdo_sqlite
+
+      - name: Validate Composer
+        run: composer validate --strict --no-check-publish
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --prefer-dist
+
+      - name: Run quality checks
+        run: composer test
