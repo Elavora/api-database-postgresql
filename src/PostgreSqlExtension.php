@@ -30,7 +30,7 @@ final class PostgreSqlExtension implements Extension
         );
     }
 
-    private function pdoConfig(): array
+    public function pdoConfig(): array
     {
         if (!isset($this->config['connections'])) {
             return $this->withDsn($this->config);
