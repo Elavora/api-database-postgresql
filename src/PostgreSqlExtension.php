@@ -15,9 +15,7 @@ final class PostgreSqlExtension implements Extension
     /**
      * @param array<string, mixed> $config Configuracao PostgreSQL unica ou mapa de conexoes.
      */
-    public function __construct(private readonly array $config)
-    {
-    }
+    public function __construct(private readonly array $config) {}
 
     /**
      * Registra a factory PDO configurada para PostgreSQL.
@@ -26,11 +24,14 @@ final class PostgreSqlExtension implements Extension
     {
         $application->container()->bind(
             DatabaseConnectionFactory::class,
-            new PdoConnectionFactory(config: $this->pdoConfig())
+            new PdoConnectionFactory(config: $this->pdoConfig()),
         );
     }
 
-    private function pdoConfig(): array
+    /**
+     * @return array<string, mixed>
+     */
+    public function pdoConfig(): array
     {
         if (!isset($this->config['connections'])) {
             return $this->withDsn($this->config);
@@ -48,6 +49,11 @@ final class PostgreSqlExtension implements Extension
         return ['connections' => $connections];
     }
 
+    /**
+     * @param array<string, mixed> $config
+     *
+     * @return array<string, mixed>
+     */
     private function withDsn(array $config): array
     {
         $host = $config['host'] ?? null;
