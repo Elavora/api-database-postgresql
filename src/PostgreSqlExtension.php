@@ -28,6 +28,9 @@ final class PostgreSqlExtension implements Extension
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function pdoConfig(): array
     {
         if (!isset($this->config['connections'])) {
@@ -46,6 +49,11 @@ final class PostgreSqlExtension implements Extension
         return ['connections' => $connections];
     }
 
+    /**
+     * @param array<string, mixed> $config
+     *
+     * @return array<string, mixed>
+     */
     private function withDsn(array $config): array
     {
         $host = $config['host'] ?? null;
