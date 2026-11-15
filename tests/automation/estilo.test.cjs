@@ -95,7 +95,7 @@ test.describe('composer.json', () => {
         const req = composer().require || {};
         assert.equal(req['ext-pdo_pgsql'], '*');
         assert.equal(req['elavora/api-framework'], '^3.0');
-        assert.equal(req['elavora/api-database-pdo'], '^1.0');
+        assert.equal(req['elavora/api-database-pdo'], '^2.0');
     });
 
     test('elavora/code-standards ^1.N (N >= 1) em require-dev, fora do require', () => {
