@@ -73,9 +73,9 @@ test.describe('restrição de elavora/code-standards (exemplos da doc)', () => {
 test.describe('composer.json', () => {
     test('é formatado com 2 espaços, sem espaços duplos depois de ":" e sem sequências \\uXXXX', () => {
         const raw = h.read('composer.json');
-        assert.doesNotMatch(raw, /\\u[0-9a-fA-F]{4}/, 'sequência \\uXXXX encontrada (use ">=8.3")');
+        assert.doesNotMatch(raw, /\\u[0-9a-fA-F]{4}/, 'sequência \\uXXXX encontrada (use ">=8.4")');
         assert.doesNotMatch(raw, /":\s{2,}/, 'espaços duplos depois de ":"');
-        assert.ok(raw.includes('"php": ">=8.3"'), 'esperado "php": ">=8.3" escrito literalmente');
+        assert.ok(raw.includes('"php": ">=8.4"'), 'esperado "php": ">=8.4" escrito literalmente');
         for (const line of raw.split('\n')) {
             const indent = line.match(/^( *)/)[1].length;
             assert.equal(indent % 2, 0, `indentação que não é múltipla de 2: ${JSON.stringify(line)}`);
@@ -85,17 +85,17 @@ test.describe('composer.json', () => {
         assert.ok(!raw.split('\n').some((l) => /^ {4}"require"/.test(l)), 'indentação de 4 espaços encontrada');
     });
 
-    test('require tem php >=8.3 (e mantém as outras dependências)', () => {
+    test('require tem php >=8.4 (e mantém as outras dependências)', () => {
         const c = composer();
-        assert.equal((c.require || {}).php, '>=8.3');
+        assert.equal((c.require || {}).php, '>=8.4');
         assert.ok('elavora/api-framework' in (c.require || {}), 'dependência de runtime perdida');
     });
 
     test('require mantém ext-pdo_pgsql e as restrições do upgrade (framework ^3.0, database-pdo ^1.0)', () => {
         const req = composer().require || {};
         assert.equal(req['ext-pdo_pgsql'], '*');
-        assert.equal(req['elavora/api-framework'], '^3.0');
-        assert.equal(req['elavora/api-database-pdo'], '^2.0');
+        assert.equal(req['elavora/api-framework'], '^4.1');
+        assert.equal(req['elavora/api-database-pdo'], '^3.0');
     });
 
     test('elavora/code-standards ^1.N (N >= 1) em require-dev, fora do require', () => {
