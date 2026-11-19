@@ -93,7 +93,7 @@ test.describe('composer.json', () => {
     test('require mantém ext-pdo_pgsql e as restrições do upgrade (framework ^3.0, database-pdo ^1.0)', () => {
         const req = composer().require || {};
         assert.equal(req['ext-pdo_pgsql'], '*');
-        assert.equal(req['elavora/api-framework'], '^4.1');
+        assert.equal(req['elavora/api-framework'], '^4.1 || ^5.0 || ^6.0');
         assert.equal(req['elavora/api-database-pdo'], '^3.0');
     });
 

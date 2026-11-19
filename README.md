@@ -9,7 +9,7 @@
 Extensão PostgreSQL opcional para o framework Elavora, baseada em `elavora/api-database-pdo`.
 
 - Versão: **1.0.0**. Dependentes devem exigir `"elavora/api-database-postgresql": "^1.0"`.
-- Exige `elavora/api-framework` `^4.1`, `elavora/api-database-pdo` `^3.0`, PHP `>=8.4` e `ext-pdo_pgsql`.
+- Exige `elavora/api-framework` `^4.1 || ^5.0 || ^6.0`, `elavora/api-database-pdo` `^3.0`, PHP `>=8.4` e `ext-pdo_pgsql`.
 
 Registre `PostgreSqlExtension` com `host`, `port`, `database`, `username`, `password`
 e `options`. O pacote monta o DSN `pgsql:host=<host>;port=<port>;dbname=<database>` e o entrega ao
@@ -24,7 +24,7 @@ A especificação completa, com regras e exemplos, está em [docs/USO.md](docs/U
 composer require elavora/api-database-postgresql
 ```
 
-Requisitos: PHP 8.4 ou superior, `ext-pdo_pgsql`, `elavora/api-framework` `^4.1` e `elavora/api-database-pdo` `^3.0`.
+Requisitos: PHP 8.4 ou superior, `ext-pdo_pgsql`, `elavora/api-framework` `^4.1 || ^5.0 || ^6.0` e `elavora/api-database-pdo` `^3.0`.
 
 ## Desenvolvimento e testes
 
